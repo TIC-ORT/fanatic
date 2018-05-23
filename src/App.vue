@@ -16,5 +16,6 @@ export default {
 
 body {
   font-family: $main-font;
+  background: black;
 }
 </style>
