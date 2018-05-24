@@ -7,7 +7,7 @@
         <span>Training mode:</span> <strong>{{ trainingMode ? 'On' : 'Off' }}</strong>
       </label>
     </header>
-    <video id="webcam" width="960" height="720"></video>
+    <webcam></webcam>
     <footer>
       <!-- <img src="../assets/tic-logo.svg" alt="Tecnología de la Información y la Comunicación" width="140" height="120" />
       <img src="../assets/ort-logo.svg" alt="Escuelta Técnica ORT" width="260" height="120" /> -->
@@ -16,21 +16,16 @@
 </template>
 
 <script>
+import Webcam from './Webcam'
 export default {
   name: 'home',
+  components: {
+    'webcam': Webcam
+  },
   data () {
     return {
       trainingMode: true
     }
-  },
-  mounted () {
-    window.webcam = document.getElementById('webcam')
-    navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(function (stream) {
-      window.webcam.srcObject = stream
-      window.webcam.play()
-    }).catch(function (err) {
-      console.log('An error occured! ' + err)
-    })
   }
 }
 </script>
@@ -52,23 +47,17 @@ main {
   align-items: center;
   overflow: hidden;
   position: relative;
-  video {
-    width: auto;
-    max-height: 60vh;
-    box-shadow: 0 0 0 1em rgba(255,255,255,0.25);
-    border-radius: .0625em;
-  }
   header {
     position: absolute;
     top: 0; right: 0; left: 0;
-    padding: 2em;
+    padding: 5vh;
     h1 {
       background-image: url('../assets/fanatic.svg');
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
       font-size: 1em;
-      height: 8em;
+      height: 10vh;
       margin: 0;
       padding: 0;
       text-indent: -9000em;
