@@ -3,8 +3,8 @@
     <header>
       <h1>FanaTIC</h1>
       <label :class="{ enable: trainingMode }">
-        <input type="checkbox" v-model="trainingMode" />
-        <span>Training mode:</span> <strong>{{ trainingMode ? 'On' : 'Off' }}</strong>
+        <span>Training mode</span>
+        <input type="checkbox" v-model="trainingMode" disabled="disabled" />
       </label>
     </header>
     <webcam></webcam>
@@ -68,38 +68,48 @@ main {
       position: absolute;
       top: 2em; right: 2em;
       color: white;
-      opacity: .65;
-      transition: all .25s;
+      transition: all .5s;
       cursor: pointer;
-      width: 10em;
+      width: 8em;
+      height: 6em;
       text-align: center;
+      background: #444;
+      background-image: url('../assets/icons/off.svg');
+      background-size: contain;
+      background-position: center 1em;
+      background-repeat: no-repeat;
+      border: solid .125em #222;
+      transform: translateX(6em);
       input {
         display: block;
         appearance: none;
-        width: 4em;
-        height: 4em;
-        background-image: url('../assets/training.svg');
-        background-size: contain;
-        background-position: center;
-        background-repeat: no-repeat;
-        margin: .5em auto;
-      }
-      span, strong {
-        /* font-size: 1.25em; */
+        background: none;
+        cursor: pointer;
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        &:disabled {
+          cursor: not-allowed;
+        }
       }
       span {
-        margin-right: .5em;
-      }
-      strong {
-        display: inline-block;
-        font-family: $alt-font;
-        font-weight: 400;
+        display: block;
+        width: 100%;
+        height: 2em;
+        line-height: 2em;
+        background: #222;
+        text-align: center;
+        text-transform: uppercase;
+        font-size: .75em;
+        font-weight: 700;
       }
       &.enable {
-        opacity: .85;
+        background-image: url('../assets/icons/on.svg');
+        transform: translateX(0);
+        opacity: 1;
       }
       &:hover {
         opacity: 1;
+        transform: translateX(0);
       }
     }
   }
