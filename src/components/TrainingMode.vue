@@ -28,12 +28,18 @@ export default {
 
         var data = canvas.toDataURL('image/jpeg')
 
-        var photo = document.createElement('img')
-        photo.setAttribute('src', data)
+        // var photo = document.createElement('img')
+        // photo.setAttribute('src', data)
         // photo.setAttribute('style', 'position:absolute;top:0;left:0;')
         // document.getElementById('app').appendChild(photo)
-        console.log(photo)
+        // console.log(photo)
+
         _this.$parent.timerSeconds = 0
+        _this.$parent.stillPhoto = data
+
+        window.setTimeout(function () {
+          _this.$parent.stillPhoto = ''
+        }, 5000)
       }, 5000)
     }
   }

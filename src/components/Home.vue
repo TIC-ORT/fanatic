@@ -7,8 +7,9 @@
         <input type="checkbox" v-model="trainingModeEnable" disabled="disabled" />
       </label>
     </header>
-    <timer v-if="timerSeconds > 0" :seconds="timerSeconds"></timer>
     <webcam></webcam>
+    <timer v-if="timerSeconds > 0" :seconds="timerSeconds"></timer>
+    <photo v-if="stillPhoto !== ''" :source="stillPhoto"></photo>
     <training-mode></training-mode>
     <footer>
       <!-- <img src="../assets/tic-logo.svg" alt="Tecnología de la Información y la Comunicación" width="140" height="120" />
@@ -18,20 +19,23 @@
 </template>
 
 <script>
-import Timer from './Timer'
 import Webcam from './Webcam'
+import Timer from './Timer'
+import Photo from './Photo'
 import TrainingMode from './TrainingMode'
 export default {
   name: 'home',
   components: {
-    'timer': Timer,
     'webcam': Webcam,
+    'timer': Timer,
+    'photo': Photo,
     'training-mode': TrainingMode
   },
   data () {
     return {
       trainingModeEnable: true,
-      timerSeconds: 0
+      timerSeconds: 0,
+      stillPhoto: ''
     }
   }
 }
@@ -128,7 +132,7 @@ main {
   width: 60%;
   height: 65%;
   margin: 0 auto;
-  right: 0; left: 0;
+  top: 0; right: 0; left: 0;
   border-radius: .0625em;
 }
 </style>

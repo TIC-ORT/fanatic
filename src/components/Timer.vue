@@ -34,7 +34,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.seconds)
+    document.getElementById('timer').style.top = window.webcam.offsetTop + 'px'
     this.countdown = this.seconds
   }
 }
@@ -48,6 +48,7 @@ export default {
   font-size: 36em;
   font-weight: 700;
   color: white;
+  z-index: 500;
   span {
     opacity: 0;
   }
