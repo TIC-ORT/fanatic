@@ -3,9 +3,9 @@
     <h2>¿Qué gesto vas a hacer?</h2>
     <div class="buttons">
       <button id="neutral" @click="takePicture()">Neutral</button>
-      <button id="happy">Feliz</button>
-      <button id="angry">Enojado</button>
-      <button id="sad">Triste</button>
+      <button id="happy" @click="takePicture()">Feliz</button>
+      <button id="angry" @click="takePicture()">Enojado</button>
+      <button id="sad" @click="takePicture()">Triste</button>
     </div>
   </div>
 </template>
@@ -48,10 +48,31 @@ export default {
           }, 4500)
         }, 5000)
       }, 1000)
+    },
+    keydown (event) {
+      console.log(event.keyCode)
+      switch (event.keyCode) {
+        case 65:
+          document.getElementById('neutral').click()
+          break
+        case 49:
+          document.getElementById('happy').click()
+          break
+        case 66:
+          document.getElementById('angry').click()
+          break
+        case 50:
+          document.getElementById('sad').click()
+          break
+      }
     }
   },
   mounted () {
     document.getElementById('actions').style.top = window.webcam.offsetTop + 'px'
+    document.addEventListener('keydown', this.keydown, false)
+  },
+  destroyed () {
+    document.removeEventListener('keydown', this.keydown, true)
   }
 }
 </script>
@@ -113,11 +134,11 @@ export default {
         background-image: url('../assets/twemoji/1f622.svg');
       }
       &:hover {
-        transform: translateY(-.25em);
+        transform: scale(1.15);
         box-shadow: 0 .5em .25em rgba(0,0,0,.25);
       }
       &:active {
-        transform: translateY(.25em);
+        transform: scale(1);
         box-shadow: 0 .25em .25em rgba(0,0,0,.25), inset 0 0 .25em rgba(0,0,0,.25);
       }
     }
