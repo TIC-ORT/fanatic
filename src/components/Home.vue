@@ -2,12 +2,14 @@
   <main>
     <header>
       <h1>FanaTIC</h1>
-      <label :class="{ enable: trainingMode }">
+      <label :class="{ enable: trainingModeEnable }">
         <span>Training mode</span>
-        <input type="checkbox" v-model="trainingMode" disabled="disabled" />
+        <input type="checkbox" v-model="trainingModeEnable" disabled="disabled" />
       </label>
     </header>
+    <timer v-if="timerSeconds > 0" :seconds="timerSeconds"></timer>
     <webcam></webcam>
+    <training-mode></training-mode>
     <footer>
       <!-- <img src="../assets/tic-logo.svg" alt="Tecnología de la Información y la Comunicación" width="140" height="120" />
       <img src="../assets/ort-logo.svg" alt="Escuelta Técnica ORT" width="260" height="120" /> -->
@@ -16,15 +18,20 @@
 </template>
 
 <script>
+import Timer from './Timer'
 import Webcam from './Webcam'
+import TrainingMode from './TrainingMode'
 export default {
   name: 'home',
   components: {
-    'webcam': Webcam
+    'timer': Timer,
+    'webcam': Webcam,
+    'training-mode': TrainingMode
   },
   data () {
     return {
-      trainingMode: true
+      trainingModeEnable: true,
+      timerSeconds: 0
     }
   }
 }
@@ -42,22 +49,19 @@ main {
     background: url('../assets/grass@3x.png');
   }
   box-shadow: inset 0 0 0 1em rgba(255,255,255,0.25);
-  display: flex;
-  justify-content: center;
-  align-items: center;
   overflow: hidden;
   position: relative;
   header {
-    position: absolute;
-    top: 0; right: 0; left: 0;
-    padding: 5vh;
+    margin: 2.5%;
+    height: 10%;
+    width: 100%;
     h1 {
       background-image: url('../assets/fanatic.svg');
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
       font-size: 1em;
-      height: 10vh;
+      height: 100%;
       margin: 0;
       padding: 0;
       text-indent: -9000em;
@@ -114,8 +118,17 @@ main {
     }
   }
   footer {
-    position: absolute;
-    right: 0; bottom: 0; left: 0;
+    margin: 2.5%;
+    height: 10%;
+    width: 100%;
   }
+}
+.mask {
+  position: absolute;
+  width: 60%;
+  height: 65%;
+  margin: 0 auto;
+  right: 0; left: 0;
+  border-radius: .0625em;
 }
 </style>

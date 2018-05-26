@@ -6,6 +6,7 @@
 
 <script>
 import 'normalize.css'
+import 'animate.css'
 export default {
   name: 'app'
 }

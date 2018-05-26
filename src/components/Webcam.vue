@@ -19,9 +19,12 @@ export default {
 
 <style scoped lang="scss">
 video {
-  width: auto;
-  max-height: 60vh;
+  display: block;
+  width: 60%;
+  height: 65%;
+  margin: 2.5% auto;
   box-shadow: 0 0 0 1em rgba(255,255,255,0.25);
   border-radius: .0625em;
+  object-fit: initial;
 }
 </style>
