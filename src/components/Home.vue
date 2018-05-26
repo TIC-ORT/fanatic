@@ -10,10 +10,21 @@
     <webcam></webcam>
     <timer v-if="timerSeconds > 0" :seconds="timerSeconds"></timer>
     <photo v-if="stillPhoto !== ''" :source="stillPhoto"></photo>
-    <training-mode></training-mode>
+    <transition enter-active-class="animated zoomInDown" leave-active-class="animated fadeOut">
+      <actions v-if="actionsAvailable"></actions>
+    </transition>
     <footer>
-      <!-- <img src="../assets/tic-logo.svg" alt="Tecnología de la Información y la Comunicación" width="140" height="120" />
-      <img src="../assets/ort-logo.svg" alt="Escuelta Técnica ORT" width="260" height="120" /> -->
+      <div class="left">
+        <img src="../assets/logos/ort.svg" width="240" height="102" alt="Escuelas Técnica ORT" />
+        <div class="watson">
+          <span>Hecho con</span>
+          <img src="../assets/logos/watson.svg" width="260" height="76" alt="IBM Watson" />
+        </div>
+      </div>
+      <div class="right">
+        <a href="https://twitter.com/TIC_ORT" target="_blank" title="TIC en Twitter" class="twitter"><font-awesome-icon :icon="['fab', 'twitter']" /></a>
+        <a href="https://github.com/TIC-ORT/fanatic" target="_blank" title="FanaTIC en GitHub" class="github"><font-awesome-icon :icon="['fab', 'github']" /></a>
+      </div>
     </footer>
   </main>
 </template>
@@ -22,17 +33,18 @@
 import Webcam from './Webcam'
 import Timer from './Timer'
 import Photo from './Photo'
-import TrainingMode from './TrainingMode'
+import Actions from './Actions'
 export default {
   name: 'home',
   components: {
     'webcam': Webcam,
     'timer': Timer,
     'photo': Photo,
-    'training-mode': TrainingMode
+    'actions': Actions
   },
   data () {
     return {
+      actionsAvailable: false,
       trainingModeEnable: true,
       timerSeconds: 0,
       stillPhoto: ''
@@ -45,22 +57,21 @@ export default {
 main {
   width: 100%;
   height: 100vh;
-  background: url('../assets/grass.png');
+  background: url('../assets/backgrounds/grass.png');
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
-    background: url('../assets/grass@2x.png');
+    background: url('../assets/backgrounds/grass@2x.png');
   }
   @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) { 
-    background: url('../assets/grass@3x.png');
+    background: url('../assets/backgrounds/grass@3x.png');
   }
   box-shadow: inset 0 0 0 1em rgba(255,255,255,0.25);
   overflow: hidden;
   position: relative;
   header {
-    margin: 2.5%;
-    height: 10%;
-    width: 100%;
+    margin: 2.5vh 4em 0 4em;
+    height: 10vh;
     h1 {
-      background-image: url('../assets/fanatic.svg');
+      background-image: url('../assets/logos/fanatic.svg');
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
@@ -122,15 +133,65 @@ main {
     }
   }
   footer {
-    margin: 2.5%;
-    height: 10%;
-    width: 100%;
+    margin: 0 4em 5vh 4em;
+    height: 7.5vh;
+    display: flex;
+    align-items: center;
+    color: white;
+    opacity: .85;
+    div {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      &.left {
+        justify-content: flex-start;
+        img {
+          display: block;
+          width: auto;
+          height: 100%;
+        }
+        div.watson {
+          display: block;
+          width: auto;
+          margin-left: 4em;
+          height: 80%;
+          span {
+            display: block;
+            height: 25%;
+            text-align: center;
+            font-size: .95em;
+          }
+          img {
+            height: 75%;
+          }
+        }
+      }
+      &.right {
+        justify-content: flex-end;
+        a {
+          display: block;
+          font-size: 2em;
+          margin: 0 .25em;
+          color: white;
+          text-decoration: none;
+          transition: all .25s;
+          &.twitter:hover {
+            color: #1da1f3;
+          }
+          &.github:hover {
+            color: #191717;
+          }
+        }
+      }
+    }
   }
 }
 .mask {
   position: absolute;
-  width: 60%;
-  height: 65%;
+  width: 80%;
+  height: 65vh;
+  max-width: 960px;
   margin: 0 auto;
   top: 0; right: 0; left: 0;
   border-radius: .0625em;
