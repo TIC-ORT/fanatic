@@ -1,8 +1,8 @@
 {
   "name": "fanatic",
-  "version": "1.0.0",
-  "description": "FanaTic",
-  "author": "Andres Moritan <amoritan@me.com>",
+  "version": "0.1.0",
+  "description": "FanaTIC",
+  "author": "Andres Moritan <amoritan@ort.edu.ar>",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",

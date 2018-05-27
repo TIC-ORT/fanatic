@@ -130,25 +130,25 @@ export default {
         background-color: #eee;
         // border-color: darken(#eee, 5%);
         // color: darken(#eee, 50%);
-        background-image: url('../assets/twemoji/1f610.svg');
+        background-image: url('/static/twemoji/1f610.svg');
       }
       &#happy {
         background-color: #7ed321;
         // border-color: darken(#7ed321, 5%);
         // color: darken(#7ed321, 15%);
-        background-image: url('../assets/twemoji/1f603.svg');
+        background-image: url('/static/twemoji/1f603.svg');
       }
       &#angry {
         background-color: #b0021b;
         // border-color: darken(#b0021b, 5%);
         // color: darken(#b0021b, 15%);
-        background-image: url('../assets/twemoji/1f621.svg');
+        background-image: url('/static/twemoji/1f621.svg');
       }
       &#sad {
         background-color: #4a90e2;
         // border-color: darken(#4a90e2, 5%);
         // color: darken(#4a90e2, 15%);
-        background-image: url('../assets/twemoji/1f622.svg');
+        background-image: url('/static/twemoji/1f622.svg');
       }
       &:hover {
         transform: scale(1.15);

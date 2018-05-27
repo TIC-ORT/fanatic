@@ -17,10 +17,10 @@
     </transition>
     <footer>
       <div class="left">
-        <img src="../assets/logos/ort.svg" width="240" height="102" alt="Escuelas Técnica ORT" />
+        <img src="/static/logos/ort.svg" width="240" height="102" alt="Escuelas Técnica ORT" />
         <div class="watson">
           <span>Hecho con</span>
-          <img src="../assets/logos/watson.svg" width="260" height="76" alt="IBM Watson" />
+          <img src="/static/logos/watson.svg" width="260" height="76" alt="IBM Watson" />
         </div>
       </div>
       <div class="right">
@@ -59,12 +59,12 @@ export default {
 main {
   width: 100%;
   height: 100vh;
-  background: url('../assets/backgrounds/grass.png');
+  background: url('/static/backgrounds/grass.png');
   @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) { 
-    background: url('../assets/backgrounds/grass@2x.png');
+    background: url('/static/backgrounds/grass@2x.png');
   }
   @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) { 
-    background: url('../assets/backgrounds/grass@3x.png');
+    background: url('/static/backgrounds/grass@3x.png');
   }
   box-shadow: inset 0 0 0 1em rgba(255,255,255,0.25);
   overflow: hidden;
@@ -73,7 +73,7 @@ main {
     margin: 2.5vh 4em 0 4em;
     height: 10vh;
     h1 {
-      background-image: url('../assets/logos/fanatic.svg');
+      background-image: url('/static/logos/fanatic.svg');
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
@@ -95,7 +95,7 @@ main {
       height: 6em;
       text-align: center;
       background: #444;
-      background-image: url('../assets/icons/off.svg');
+      background-image: url('/static/icons/off.svg');
       background-size: contain;
       background-position: center 1em;
       background-repeat: no-repeat;
@@ -124,7 +124,7 @@ main {
         font-weight: 700;
       }
       &.enable {
-        background-image: url('../assets/icons/on.svg');
+        background-image: url('/static/icons/on.svg');
         transform: translateX(0);
         opacity: 1;
       }
