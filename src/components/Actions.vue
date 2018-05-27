@@ -2,19 +2,20 @@
   <div id="actions" class="mask">
     <h2>¿Qué gesto vas a hacer?</h2>
     <div class="buttons">
-      <button id="neutral" @click="takePicture()">Neutral</button>
-      <button id="happy" @click="takePicture()">Feliz</button>
-      <button id="angry" @click="takePicture()">Enojado</button>
-      <button id="sad" @click="takePicture()">Triste</button>
+      <button id="neutral" @click="takePicture('neutral')">Neutral</button>
+      <button id="happy" @click="takePicture('happy')">Feliz</button>
+      <button id="angry" @click="takePicture('angry')">Enojado</button>
+      <button id="sad" @click="takePicture('sad')">Triste</button>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'actions',
   methods: {
-    takePicture () {
+    takePicture (category) {
       var _this = this
       _this.$parent.actionsAvailable = false
       window.setTimeout(function () {
@@ -30,6 +31,10 @@ export default {
           canvas.height = height
 
           context.drawImage(window.webcam, 0, 0, width, height)
+
+          canvas.toBlob(function (blob) {
+            _this.upload(blob, category)
+          }, 'image/jpeg', 1)
 
           var data = canvas.toDataURL('image/jpeg')
 
@@ -65,6 +70,26 @@ export default {
           document.getElementById('sad').click()
           break
       }
+    },
+    upload (photo, category) {
+      axios.post('https://openwhisk.ng.bluemix.net/api/v1/web/tic%40ort.edu.ar_TIC/default/upload.json', {
+        content_type: photo.type,
+        category: category
+      }).then(function (presigned) {
+        console.log(presigned)
+        axios({
+          method: 'put',
+          url: presigned.data.url,
+          headers: { 'content-type': photo.type },
+          data: photo
+        }).then(function (response) {
+          console.log(response)
+        }).catch(function (error) {
+          console.log(error)
+        })
+      }).catch(function (error) {
+        console.log(error)
+      })
     }
   },
   mounted () {
