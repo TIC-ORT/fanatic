@@ -33,16 +33,20 @@ export default {
           context.drawImage(window.webcam, 0, 0, width, height)
 
           canvas.toBlob(function (blob) {
+            _this.getURL(category).then(function (presigned) {
+              _this.upload(blob, presigned.data.url).then(function (res) {
+                _this.$parent.stillPhoto = ''
+                window.setTimeout(function () {
+                  _this.$parent.actionsAvailable = true
+                }, 1000)
+              })
+            }).catch(function (err) {
+              console.log(err)
+            })
             _this.upload(blob, category)
           }, 'image/jpeg', 1)
 
           var data = canvas.toDataURL('image/jpeg')
-
-          // var photo = document.createElement('img')
-          // photo.setAttribute('src', data)
-          // photo.setAttribute('style', 'position:absolute;top:0;left:0;')
-          // document.getElementById('app').appendChild(photo)
-          // console.log(photo)
 
           _this.$parent.timerSeconds = 0
           _this.$parent.stillPhoto = data
@@ -65,27 +69,18 @@ export default {
           break
       }
     },
-    upload (photo, category) {
-      var _this = this
-      axios.post('https://openwhisk.ng.bluemix.net/api/v1/web/tic%40ort.edu.ar_TIC/default/upload.json', {
-        content_type: photo.type,
+    getURL (category) {
+      return axios.post('https://openwhisk.ng.bluemix.net/api/v1/web/tic%40ort.edu.ar_TIC/default/upload.json', {
+        content_type: 'image/jpeg',
         category: category
-      }).then(function (presigned) {
-        axios({
-          method: 'put',
-          url: presigned.data.url,
-          headers: { 'content-type': photo.type },
-          data: photo
-        }).then(function (response) {
-          _this.$parent.stillPhoto = ''
-          window.setTimeout(function () {
-            _this.$parent.actionsAvailable = true
-          }, 1000)
-        }).catch(function (error) {
-          console.log(error)
-        })
-      }).catch(function (error) {
-        console.log(error)
+      })
+    },
+    upload (photo, destiny) {
+      return axios({
+        method: 'put',
+        url: destiny,
+        headers: { 'content-type': photo.type },
+        data: photo
       })
     }
   },
