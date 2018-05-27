@@ -9,7 +9,9 @@
     </header>
     <webcam></webcam>
     <timer v-if="timerSeconds > 0" :seconds="timerSeconds"></timer>
-    <photo v-if="stillPhoto !== ''" :source="stillPhoto"></photo>
+    <transition enter-active-class="burnIn" leave-active-class="animated bounceOutUp">
+      <photo v-if="stillPhoto !== ''" :source="stillPhoto"></photo>
+    </transition>
     <transition enter-active-class="animated zoomInDown" leave-active-class="animated fadeOut">
       <actions v-if="actionsAvailable"></actions>
     </transition>

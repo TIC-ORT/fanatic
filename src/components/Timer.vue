@@ -49,6 +49,7 @@ export default {
   font-weight: 700;
   color: white;
   z-index: 500;
+  text-shadow: 0 0 .25em rgba(0,0,0,.25);
   span {
     opacity: 0;
   }

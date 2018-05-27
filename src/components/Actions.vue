@@ -46,16 +46,10 @@ export default {
 
           _this.$parent.timerSeconds = 0
           _this.$parent.stillPhoto = data
-
-          window.setTimeout(function () {
-            _this.$parent.stillPhoto = ''
-            _this.$parent.actionsAvailable = true
-          }, 4500)
         }, 5000)
       }, 1000)
     },
     keydown (event) {
-      console.log(event.keyCode)
       switch (event.keyCode) {
         case 65:
           document.getElementById('neutral').click()
@@ -72,18 +66,21 @@ export default {
       }
     },
     upload (photo, category) {
+      var _this = this
       axios.post('https://openwhisk.ng.bluemix.net/api/v1/web/tic%40ort.edu.ar_TIC/default/upload.json', {
         content_type: photo.type,
         category: category
       }).then(function (presigned) {
-        console.log(presigned)
         axios({
           method: 'put',
           url: presigned.data.url,
           headers: { 'content-type': photo.type },
           data: photo
         }).then(function (response) {
-          console.log(response)
+          _this.$parent.stillPhoto = ''
+          window.setTimeout(function () {
+            _this.$parent.actionsAvailable = true
+          }, 1000)
         }).catch(function (error) {
           console.log(error)
         })
@@ -113,7 +110,7 @@ export default {
     font-weight: 700;
     color: white;
     text-align: center;
-    text-shadow: 0 .25em .25em rgba(0,0,0,.25);
+    text-shadow: 0 0 .25em rgba(0,0,0,.25);
   }
   div.buttons {
     margin: 0 4em;
