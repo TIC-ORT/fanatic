@@ -39,11 +39,12 @@ export default {
                 window.setTimeout(function () {
                   _this.$parent.actionsAvailable = true
                 }, 1000)
+              }).catch(function (err) {
+                console.log('Uploading error!', err)
               })
             }).catch(function (err) {
-              console.log(err)
+              console.log('Presigned URL error!', err)
             })
-            _this.upload(blob, category)
           }, 'image/jpeg', 1)
 
           var data = canvas.toDataURL('image/jpeg')
