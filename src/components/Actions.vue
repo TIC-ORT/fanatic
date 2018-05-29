@@ -3,10 +3,10 @@
     <h3>Ayuda a entrenar la Inteligencia Artifical mostrándo cómo siete un Argentin@</h3>
     <h2>¿Qué sentimiento vas a hacer?</h2>
     <div class="buttons">
-      <button id="neutral" @click="takePicture('neutral')">Neutral</button>
-      <button id="happy" @click="takePicture('happy')">Feliz</button>
-      <button id="angry" @click="takePicture('angry')">Enojado</button>
-      <button id="sad" @click="takePicture('sad')">Triste</button>
+      <button id="neutral" @click="takePicture('neutral')" @mousedown="holdingAction(true, 'firstKey')" @mouseup="holdingAction(false)">Neutral</button>
+      <button id="happy" @click="takePicture('happy')" @mousedown="holdingAction(true, 'secondKey')" @mouseup="holdingAction(false)">Feliz</button>
+      <button id="angry" @click="takePicture('angry')" @mousedown="holdingAction(true, 'thirdKey')" @mouseup="holdingAction(false)">Enojado</button>
+      <button id="sad" @click="takePicture('sad')" @mousedown="holdingAction(true, 'fourthKey')" @mouseup="holdingAction(false)">Triste</button>
     </div>
   </div>
 </template>
@@ -15,6 +15,11 @@
 import axios from 'axios'
 export default {
   name: 'actions',
+  data () {
+    return {
+      settingKey: ''
+    }
+  },
   methods: {
     takePicture (category) {
       var _this = this
@@ -61,19 +66,25 @@ export default {
       }, 1000)
     },
     keydown (event) {
-      switch (event.keyCode) {
-        case 65:
-          document.getElementById('neutral').click()
-          break
-        case 49:
-          document.getElementById('happy').click()
-          break
-        case 66:
-          document.getElementById('angry').click()
-          break
-        case 50:
-          document.getElementById('sad').click()
-          break
+      var _this = this
+      if (_this.settingKey === '') {
+        switch (event.keyCode) {
+          case parseInt(localStorage.getItem('firstKey')):
+            document.getElementById('neutral').click()
+            break
+          case parseInt(localStorage.getItem('secondKey')):
+            document.getElementById('happy').click()
+            break
+          case parseInt(localStorage.getItem('thirdKey')):
+            document.getElementById('angry').click()
+            break
+          case parseInt(localStorage.getItem('fourthKey')):
+            document.getElementById('sad').click()
+            break
+        }
+      } else {
+        localStorage.setItem(_this.settingKey, event.keyCode)
+        _this.settingKey = ''
       }
     },
     getURL (category) {
@@ -103,6 +114,17 @@ export default {
       window.setTimeout(function () {
         _this.$parent.actionsAvailable = true
       }, 3500)
+    },
+    holdingAction (holding, action) {
+      var _this = this
+      if (holding) {
+        _this.keyboardTimeout = window.setTimeout(function () {
+          window.alert('Presione la tecla que desea configurar a continuación.')
+          _this.settingKey = action
+        }, 3000)
+      } else {
+        clearTimeout(_this.keyboardTimeout)
+      }
     }
   },
   mounted () {
