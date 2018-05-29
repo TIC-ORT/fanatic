@@ -15,6 +15,9 @@
     <transition enter-active-class="animated zoomInDown" leave-active-class="animated fadeOut">
       <actions v-if="actionsAvailable"></actions>
     </transition>
+    <transition leave-active-class="animated fadeOut">
+      <feedback v-if="feedbackMessage !== '' || feedbackClass !== ''" :message="feedbackMessage" :class="feedbackClass"></feedback>
+    </transition>
     <footer>
       <div class="left">
         <img src="/static/img/logos/ort.svg" width="240" height="102" alt="Escuelas Técnica ORT" />
@@ -36,16 +39,20 @@ import Webcam from './Webcam'
 import Timer from './Timer'
 import Photo from './Photo'
 import Actions from './Actions'
+import Feedback from './Feedback'
 export default {
   name: 'home',
   components: {
     'webcam': Webcam,
     'timer': Timer,
     'photo': Photo,
-    'actions': Actions
+    'actions': Actions,
+    'feedback': Feedback
   },
   data () {
     return {
+      feedbackMessage: 'La aplicación necesita acceso a la cámara para funcionar',
+      feedbackClass: 'webcam',
       actionsAvailable: false,
       trainingModeEnable: true,
       timerSeconds: 0,

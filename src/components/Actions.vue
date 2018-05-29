@@ -1,6 +1,7 @@
 <template>
   <div id="actions" class="mask">
-    <h2>¿Qué gesto vas a hacer?</h2>
+    <h3>Ayuda a entrenar la Inteligencia Artifical mostrándo cómo siete un Argentin@</h3>
+    <h2>¿Qué sentimiento vas a hacer?</h2>
     <div class="buttons">
       <button id="neutral" @click="takePicture('neutral')">Neutral</button>
       <button id="happy" @click="takePicture('happy')">Feliz</button>
@@ -35,15 +36,19 @@ export default {
           canvas.toBlob(function (blob) {
             _this.getURL(category).then(function (presigned) {
               _this.upload(blob, presigned.data.url).then(function (res) {
-                _this.$parent.stillPhoto = ''
+                _this.$parent.feedbackClass = 'success ' + category
+                window.setTimeout(function () {
+                  _this.$parent.feedbackClass = ''
+                  _this.$parent.stillPhoto = ''
+                }, 500)
                 window.setTimeout(function () {
                   _this.$parent.actionsAvailable = true
                 }, 1000)
               }).catch(function (err) {
-                console.log('Uploading error!', err)
+                _this.handleError(err)
               })
             }).catch(function (err) {
-              console.log('Presigned URL error!', err)
+              _this.handleError(err)
             })
           }, 'image/jpeg', 1)
 
@@ -51,6 +56,7 @@ export default {
 
           _this.$parent.timerSeconds = 0
           _this.$parent.stillPhoto = data
+          _this.$parent.feedbackClass = 'loading'
         }, 5000)
       }, 1000)
     },
@@ -83,6 +89,20 @@ export default {
         headers: { 'content-type': photo.type },
         data: photo
       })
+    },
+    handleError (error) {
+      var _this = this
+      _this.$parent.feedbackMessage = 'Ha ocurrido un error al enviar la imagen'
+      _this.$parent.feedbackClass = 'error'
+      console.log('Uploading error!', error)
+      window.setTimeout(function () {
+        _this.$parent.feedbackMessage = ''
+        _this.$parent.feedbackClass = ''
+        _this.$parent.stillPhoto = ''
+      }, 3000)
+      window.setTimeout(function () {
+        _this.$parent.actionsAvailable = true
+      }, 3500)
     }
   },
   mounted () {
@@ -100,13 +120,19 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  h2 {
-    margin: 0 2em 1em 2em;
-    font-size: 4em;
+  h2, h3 {
     font-weight: 700;
     color: white;
     text-align: center;
     text-shadow: 0 0 .25em rgba(0,0,0,.25);
+  }
+  h2 {
+    margin: 0 8rem 1em 8rem;
+    font-size: 3em;
+  }
+  h3 {
+    margin: 0 8rem 2em 8rem;
+    font-size: 2em;
   }
   div.buttons {
     margin: 0 4em;

@@ -11,6 +11,8 @@ export default {
     navigator.mediaDevices.getUserMedia({ video: true, audio: false }).then(function (stream) {
       window.webcam.srcObject = stream
       window.webcam.play()
+      _this.$parent.feedbackMessage = ''
+      _this.$parent.feedbackClass = ''
       _this.$parent.actionsAvailable = true
     }).catch(function (err) {
       console.log('An error occured! ' + err)
