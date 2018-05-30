@@ -1,6 +1,6 @@
 <template>
   <div id="actions" class="mask">
-    <h3>Ayuda a entrenar la Inteligencia Artifical mostrándo cómo siete un Argentin@</h3>
+    <h3>Enseñale a Watson cómo siente un hincha Argentin@</h3>
     <h2>¿Qué sentimiento vas a hacer?</h2>
     <div class="buttons">
       <button id="neutral" @click="takePicture('neutral')" @mousedown="holdingAction(true, 'firstKey')" @mouseup="holdingAction(false)">Neutral</button>
@@ -149,11 +149,11 @@ export default {
     text-shadow: 0 0 .25em rgba(0,0,0,.25);
   }
   h2 {
-    margin: 0 8rem 1em 8rem;
+    margin: 0 4rem 1em 4rem;
     font-size: 3em;
   }
   h3 {
-    margin: 0 8rem 2em 8rem;
+    margin: 0 4rem 2em 4rem;
     font-size: 2em;
   }
   div.buttons {
