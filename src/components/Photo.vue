@@ -1,5 +1,5 @@
 <template>
-  <img :src="source" width="960" height="720" alt="Webcam´s still photo" id="photo" class="mask" />
+  <img :src="source" width="1280" height="1024" alt="Webcam´s still photo" id="photo" class="mask" />
 </template>
 
 <script>

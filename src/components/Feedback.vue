@@ -88,7 +88,7 @@ export default {
         background-image: url('/static/img/twemoji/1f621.svg');
       }
     }
-    &.angry {
+    &.sad {
       span {
         background-image: url('/static/img/twemoji/1f622.svg');
       }

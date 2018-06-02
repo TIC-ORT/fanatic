@@ -1,11 +1,11 @@
 <template>
   <main>
     <header>
-      <h1>FanaTIC</h1>
+      <!-- <h1>FanaTIC</h1>
       <label :class="{ enable: trainingModeEnable }">
         <span>Training mode</span>
         <input type="checkbox" v-model="trainingModeEnable" disabled="disabled" />
-      </label>
+      </label> -->
     </header>
     <webcam></webcam>
     <timer v-if="timerSeconds > 0" :seconds="timerSeconds"></timer>
@@ -18,7 +18,7 @@
     <transition leave-active-class="animated fadeOut">
       <feedback v-if="feedbackMessage !== '' || feedbackClass !== ''" :message="feedbackMessage" :class="feedbackClass"></feedback>
     </transition>
-    <footer>
+    <!-- <footer>
       <div class="left">
         <img src="/static/img/logos/ort.svg" width="240" height="102" alt="Escuelas Técnica ORT" />
         <div class="watson">
@@ -30,7 +30,7 @@
         <a href="https://twitter.com/TIC_ORT" target="_blank" title="TIC en Twitter" class="twitter"><font-awesome-icon :icon="['fab', 'twitter']" /></a>
         <a href="https://github.com/TIC-ORT/fanatic" target="_blank" title="FanaTIC en GitHub" class="github"><font-awesome-icon :icon="['fab', 'github']" /></a>
       </div>
-    </footer>
+    </footer> -->
   </main>
 </template>
 
@@ -200,7 +200,7 @@ main {
   position: absolute;
   width: 80%;
   height: 65vh;
-  max-width: 960px;
+  max-width: 1280px;
   margin: 0 auto;
   top: 0; right: 0; left: 0;
   border-radius: .0625em;

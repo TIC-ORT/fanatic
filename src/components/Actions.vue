@@ -3,10 +3,10 @@
     <h3>Enseñale a Watson cómo siente un hincha Argentin@</h3>
     <h2>¿Qué sentimiento vas a hacer?</h2>
     <div class="buttons">
-      <button id="neutral" @click="takePicture('neutral')" @mousedown="holdingAction(true, 'firstKey')" @mouseup="holdingAction(false)">Neutral</button>
+      <!-- <button id="neutral" @click="takePicture('neutral')" @mousedown="holdingAction(true, 'firstKey')" @mouseup="holdingAction(false)">Neutral</button> -->
       <button id="happy" @click="takePicture('happy')" @mousedown="holdingAction(true, 'secondKey')" @mouseup="holdingAction(false)">Feliz</button>
       <button id="angry" @click="takePicture('angry')" @mousedown="holdingAction(true, 'thirdKey')" @mouseup="holdingAction(false)">Enojado</button>
-      <button id="sad" @click="takePicture('sad')" @mousedown="holdingAction(true, 'fourthKey')" @mouseup="holdingAction(false)">Triste</button>
+      <!-- <button id="sad" @click="takePicture('sad')" @mousedown="holdingAction(true, 'fourthKey')" @mouseup="holdingAction(false)">Triste</button> -->
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
       window.setTimeout(function () {
         _this.$parent.timerSeconds = 5
         window.setTimeout(function () {
-          var width = 960
+          var width = 1280
           var height = 720
 
           var canvas = document.createElement('canvas')
@@ -88,7 +88,7 @@ export default {
       }
     },
     getURL (category) {
-      return axios.post('https://openwhisk.ng.bluemix.net/api/v1/web/tic%40ort.edu.ar_TIC/default/upload.json', {
+      return axios.post('https://openwhisk.ng.bluemix.net/api/v1/web/tic-ort_tic-ort/default/upload.json', {
         content_type: 'image/jpeg',
         category: category
       })
@@ -159,7 +159,7 @@ export default {
   div.buttons {
     margin: 0 4em;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
     align-items: center;
     button {
       width: 10em;
