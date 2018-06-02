@@ -27,7 +27,7 @@ export default {
       window.setTimeout(function () {
         _this.$parent.timerSeconds = 5
         window.setTimeout(function () {
-          var width = 960
+          var width = 1280
           var height = 720
 
           var canvas = document.createElement('canvas')

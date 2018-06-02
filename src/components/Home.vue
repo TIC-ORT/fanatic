@@ -200,7 +200,7 @@ main {
   position: absolute;
   width: 80%;
   height: 65vh;
-  max-width: 960px;
+  max-width: 1280px;
   margin: 0 auto;
   top: 0; right: 0; left: 0;
   border-radius: .0625em;
