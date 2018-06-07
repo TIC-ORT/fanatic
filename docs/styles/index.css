@@ -1,0 +1,180 @@
+@import url("https://necolas.github.io/normalize.css/8.0.0/normalize.css");
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700");
+@import url("https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css");
+@import url("https://use.fontawesome.com/releases/v5.0.13/css/brands.css");
+@import url("https://use.fontawesome.com/releases/v5.0.13/css/fontawesome.css");
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  background: #fefefe;
+  color: #001015; }
+
+header {
+  position: relative;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background: #00a7e1;
+  color: white;
+  box-shadow: 0 0.75em 3em rgba(0, 16, 21, 0.15); }
+  header video {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: .25; }
+  header h1 {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    text-indent: -1000em;
+    font-size: 1em;
+    width: 80%;
+    height: 33.33333%;
+    background-image: url("../images/logos/fanatic.svg");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat; }
+  header .author {
+    position: relative;
+    z-index: 1; }
+    header .author span {
+      display: block;
+      text-transform: uppercase;
+      text-align: center; }
+    header .author .logos img {
+      width: auto;
+      height: 6em;
+      margin: 1.5em; }
+
+main section {
+  width: 80%;
+  margin: 10em auto; }
+  main section h3 {
+    font-size: 4em;
+    font-weight: 300;
+    white-space: pre-line; }
+
+main section#intro {
+  text-align: center; }
+  main section#intro h2 {
+    font-size: 4em;
+    font-weight: 300;
+    white-space: pre-line; }
+  main section#intro .downloadBadges a {
+    display: inline-block;
+    height: 4em;
+    margin: 0 1em; }
+    main section#intro .downloadBadges a img {
+      display: block;
+      width: auto;
+      height: 100%; }
+    main section#intro .downloadBadges a[disabled] {
+      opacity: .25;
+      pointer-events: none; }
+
+main section#ticExp {
+  width: 80%;
+  padding: 1em 10%;
+  background-image: url("../images/confetti.svg"), radial-gradient(#27358c, #0b0f28);
+  background-position: center;
+  background-size: cover;
+  color: white;
+  box-shadow: 0 0 3em rgba(0, 16, 21, 0.15);
+  text-shadow: 0 0 5em rgba(0, 16, 21, 0.75); }
+  main section#ticExp h3 {
+    margin: 0;
+    color: rgba(0, 16, 21, 0.15); }
+  main section#ticExp h4 {
+    margin: 2em auto .25em auto;
+    text-align: center;
+    font-size: 4em;
+    font-weight: 300; }
+    main section#ticExp h4 a {
+      text-decoration: none;
+      color: #f54eb8;
+      font-weight: 700; }
+  main section#ticExp p {
+    font-size: 1.5em;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    color: #75ddfa;
+    margin: 0 auto 6em auto; }
+
+main section#modes {
+  width: 100%; }
+  main section#modes .mode {
+    width: 60%;
+    height: 32em;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    main section#modes .mode img {
+      position: absolute;
+      display: block;
+      width: auto;
+      height: 100%; }
+    main section#modes .mode h4 {
+      display: block;
+      width: 80%;
+      font-size: 3em;
+      font-weight: 400;
+      margin: 0 auto .5em auto;
+      color: #00a7e1; }
+    main section#modes .mode p {
+      width: 80%;
+      margin: 0 auto;
+      font-size: 1.5em;
+      line-height: 1.15em; }
+      main section#modes .mode p strong {
+        color: #00a7e1; }
+    main section#modes .mode.trainingMode {
+      padding-left: 40%;
+      box-shadow: 0 0.125em 0 #00a7e1; }
+      main section#modes .mode.trainingMode img {
+        transform: rotate(15deg);
+        bottom: -10%;
+        left: 4em; }
+    main section#modes .mode.playMode {
+      padding-right: 40%;
+      box-shadow: 0 -0.125em 0 #00a7e1; }
+      main section#modes .mode.playMode img {
+        right: 4em;
+        top: -5%; }
+
+main section#tech {
+  width: 100%; }
+  main section#tech .watson {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    padding: 0 10%;
+    background: black;
+    color: #fefefe; }
+    main section#tech .watson h3 {
+      margin: 0;
+      color: rgba(0, 16, 21, 0.15);
+      color: #fefefe; }
+    main section#tech .watson video {
+      width: auto;
+      height: 16em; }
+
+footer .social {
+  display: flex;
+  justify-content: center; }
+  footer .social a {
+    display: block;
+    margin: 1em .5em;
+    font-size: 3em;
+    color: rgba(0, 16, 21, 0.5); }

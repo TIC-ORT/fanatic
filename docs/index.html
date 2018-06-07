@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" type="text/css" href="./styles/index.css" />
+
+    <title>FanaTIC</title>
+    <meta name="description" content="Scoreboard de emociones para los partidos de la Selección Argentina" />
+  </head>
+  <body>
+    <header>
+      <video src="./videos/background.mp4" poster="./images/background.jpg" autoplay="autoplay" loop="loop" muted="muted"></video>
+      <h1>FanaTIC</h1>
+      <div class="author">
+        <span>Un proyecto de</span>
+        <div class="logos">
+          <img src="./images/logos/tic.svg" width="182" height="160" alt="Tecnología de la Información y la Comunicación" />
+          <img src="./images/logos/ort.svg" width="280" height="160" alt="Escuelas Técnicas ORT" />
+        </div>
+      </div>
+    </header>
+    <main>
+      <section id="intro">
+        <h2>Usamos <em>Machine Learning</em> y <em>Visual Recognition</em>
+          para entender el <strong>sentimiento argentin@</strong></h2>
+          <div class="downloadBadges">
+            <a href="#" class="downloadBadge"><img src="./images/bagdes/pwa.svg" width="150" height="40" alt="Iniciar como Web App" /></a>
+            <a href="#" class="downloadBadge" disabled><img src="./images/bagdes/apple.svg" width="120" height="40" alt="Consíguelo en el App Store" /></a>
+            <a href="#" class="downloadBadge" disabled><img src="./images/bagdes/google.svg" width="135" height="40" alt="Disponible en Google Play" /></a>
+          </div>
+      </section>
+      <section id="ticExp">
+        <h4>Encontranos en la <a href="http://extranet.ort.edu.ar/tic-experience/2018/index.html" target="_blank">TIC Experience 2018</a></h4>
+        <p>27 - 28 de junio de 13.00 a 17.00 horas @ Escuela ORT Argentina (Sede Belgrano)</p>
+      </section>
+      <section id="modes">
+        <div class="mode trainingMode">
+          <img src="./images/icons/strategy.svg" width="512" height="512" alt="Entrenamiento" />
+          <div id="trainingModeText">
+            <h4>Modo Entrenamiento</h4>
+            <p>Mostrándole al sistema de <em>Visual Recognition</em> de IBM Watson&trade; vamos a enseñarle <strong>cómo siente un argentin@</strong> los triunfos y las derrotas de su selección.</p>
+          </div>
+        </div>
+        <div class="mode playMode">
+          <img src="./images/icons/football.svg" width="512" height="512" alt="Futbol" />
+          <div id="playModeText">
+            <h4>Modo Partido</h4>
+            <p>Antes de cada partido, mediremos el humor de la hinchada utilizando el entrenamiento previo de <em>Machine Learning</em>, <strong>¿Servirá para preveer los resultados?</strong></p>
+          </div>
+        </div>
+      </section>
+      <section id="tech">
+        <div class="watson">
+          <h3>Hecho con <strong>IBM Watson</strong></h3>
+          <video src="./videos/watson.mp4" poster="./images/watson.jpg" autoplay="autoplay" loop="loop" muted="muted"></video>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="social">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-github"></i></a>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vivus@latest/dist/vivus.min.js"></script>
+    <script type="text/javascript" src="./scripts/index.min.js"></script>
+  </body>
+</html>
