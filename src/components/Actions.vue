@@ -13,6 +13,7 @@
 import Victory from './Victory'
 import Defeat from './Defeat'
 import axios from 'axios'
+axios.defaults.headers.common['Authorization'] = process.env.FANATIC_KEY
 export default {
   name: 'actions',
   components: {
@@ -43,19 +44,17 @@ export default {
           context.drawImage(window.webcam, 0, 0, width, height)
 
           canvas.toBlob(function (blob) {
-            _this.getURL(category).then(function (presigned) {
-              _this.upload(blob, presigned.data.url).then(function (res) {
-                _this.$parent.feedbackClass = 'success ' + category
-                window.setTimeout(function () {
-                  _this.$parent.feedbackClass = ''
-                  _this.$parent.stillPhoto = ''
-                }, 500)
-                window.setTimeout(function () {
-                  _this.$parent.actionsAvailable = true
-                }, 1000)
-              }).catch(function (err) {
-                _this.handleError(err)
-              })
+            _this.upload(blob, category).then(function (res) {
+              _this.$parent.feedbackMessage = category
+              _this.$parent.feedbackClass = 'success'
+              window.setTimeout(function () {
+                _this.$parent.feedbackMessage = ''
+                _this.$parent.feedbackClass = ''
+                _this.$parent.stillPhoto = ''
+              }, 1000)
+              window.setTimeout(function () {
+                _this.$parent.actionsAvailable = true
+              }, 1500)
             }).catch(function (err) {
               _this.handleError(err)
             })
@@ -74,16 +73,10 @@ export default {
       if (_this.settingKey === '') {
         switch (event.keyCode) {
           case parseInt(localStorage.getItem('firstKey')):
-            document.getElementById('neutral').click()
+            document.getElementById('victory').click()
             break
           case parseInt(localStorage.getItem('secondKey')):
-            document.getElementById('happy').click()
-            break
-          case parseInt(localStorage.getItem('thirdKey')):
-            document.getElementById('angry').click()
-            break
-          case parseInt(localStorage.getItem('fourthKey')):
-            document.getElementById('sad').click()
+            document.getElementById('defeat').click()
             break
         }
       } else {
@@ -91,25 +84,18 @@ export default {
         _this.settingKey = ''
       }
     },
-    getURL (category) {
-      return axios.post('https://openwhisk.ng.bluemix.net/api/v1/web/tic%40ort.edu.ar_TIC/default/upload.json', {
-        content_type: 'image/jpeg',
-        category: category
-      })
-    },
-    upload (photo, destiny) {
-      return axios({
-        method: 'put',
-        url: destiny,
-        headers: { 'content-type': photo.type },
-        data: photo
-      })
+    upload (photo, category) {
+      var data = new FormData()
+      data.append('photo', photo)
+      data.append('category', category)
+      data.append('bucket', process.env.FANATIC_BUCKET)
+      return axios.post('https://fanatic-api.mybluemix.net/upload', data)
     },
     handleError (error) {
       var _this = this
       _this.$parent.feedbackMessage = 'Ha ocurrido un error al enviar la imagen'
       _this.$parent.feedbackClass = 'error'
-      console.log('Uploading error!', error)
+      console.error('Uploading error!', error)
       window.setTimeout(function () {
         _this.$parent.feedbackMessage = ''
         _this.$parent.feedbackClass = ''
