@@ -30,7 +30,7 @@ export default {
       var _this = this
       _this.$parent.actionsAvailable = false
       window.setTimeout(function () {
-        _this.$parent.timerSeconds = 5
+        _this.$parent.timerSeconds = 3
         window.setTimeout(function () {
           var width = 1280
           var height = 720
@@ -65,7 +65,7 @@ export default {
           _this.$parent.timerSeconds = 0
           _this.$parent.stillPhoto = data
           _this.$parent.feedbackClass = 'loading'
-        }, 5000)
+        }, 3000)
       }, 1000)
     },
     keydown (event) {
@@ -115,14 +115,42 @@ export default {
       } else {
         clearTimeout(_this.keyboardTimeout)
       }
+    },
+    pushingButton (event) {
+      if (this.settingKey === '') {
+        if (event.type === 'keydown') {
+          if (event.keyCode === parseInt(localStorage.getItem('firstKey'))) {
+            this.pushAction('victory')
+          } else if (event.keyCode === parseInt(localStorage.getItem('secondKey'))) {
+            this.pushAction('defeat')
+          }
+        } else {
+          if (this.actionTimeout !== undefined) {
+            clearTimeout(this.actionTimeout)
+          }
+        }
+      } else {
+        localStorage.setItem(this.settingKey, event.keyCode)
+        this.settingKey = ''
+      }
+    },
+    pushAction (action) {
+      this.actionTimeout = window.setTimeout(function () {
+        document.getElementById(action).firstChild.classList.add('pressed')
+        window.setTimeout(function () {
+          document.getElementById(action).click()
+        }, 1000)
+      }, 500)
     }
   },
   mounted () {
     document.getElementById('actions').style.top = window.webcam.offsetTop + 'px'
-    document.addEventListener('keydown', this.keydown, false)
+    document.addEventListener('keydown', this.pushingButton, false)
+    document.addEventListener('keyup', this.pushingButton, false)
   },
   destroyed () {
-    document.removeEventListener('keydown', this.keydown, true)
+    // document.removeEventListener('keydown', this.keydown, true)
+    // document.removeEventListener('keyup', this.keyup, true)
   }
 }
 </script>

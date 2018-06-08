@@ -29,7 +29,7 @@ export default {
         opacity: 0;
       }
     }
-    &:hover, &.feedback {
+    &:hover, &.pressed, &.feedback {
       img.emojis {
         animation: bounce ease 1s;
       }
@@ -38,7 +38,7 @@ export default {
         animation-fill-mode: both;
       }
     }
-    &:hover {
+    &:hover, &.pressed {
       img.text {
         animation: pulse ease 1s;
       }
