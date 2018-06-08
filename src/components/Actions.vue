@@ -1,20 +1,24 @@
 <template>
   <div id="actions" class="mask">
-    <h3>Enseñale a Watson cómo siente un hincha Argentin@</h3>
+    <h3>Enseñale a Watson cómo siente un hincha argentin@</h3>
     <h2>¿Qué sentimiento vas a hacer?</h2>
     <div class="buttons">
-      <button id="neutral" @click="takePicture('neutral')" @mousedown="holdingAction(true, 'firstKey')" @mouseup="holdingAction(false)">Neutral</button>
-      <button id="happy" @click="takePicture('happy')" @mousedown="holdingAction(true, 'secondKey')" @mouseup="holdingAction(false)">Feliz</button>
-      <button id="angry" @click="takePicture('angry')" @mousedown="holdingAction(true, 'thirdKey')" @mouseup="holdingAction(false)">Enojado</button>
-      <button id="sad" @click="takePicture('sad')" @mousedown="holdingAction(true, 'fourthKey')" @mouseup="holdingAction(false)">Triste</button>
+      <button id="victory" @click="takePicture('victory')" @mousedown="holdingAction(true, 'firstKey')" @mouseup="holdingAction(false)"><victory></victory></button>
+      <button id="defeat" @click="takePicture('defeat')" @mousedown="holdingAction(true, 'secondKey')" @mouseup="holdingAction(false)"><defeat></defeat></button>
     </div>
   </div>
 </template>
 
 <script>
+import Victory from './Victory'
+import Defeat from './Defeat'
 import axios from 'axios'
 export default {
   name: 'actions',
+  components: {
+    'victory': Victory,
+    'defeat': Defeat
+  },
   data () {
     return {
       settingKey: ''
@@ -141,7 +145,7 @@ export default {
 #actions {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   h2, h3 {
     font-weight: 700;
     color: white;
@@ -149,63 +153,31 @@ export default {
     text-shadow: 0 0 .25em rgba(0,0,0,.25);
   }
   h2 {
-    margin: 0 4rem 1em 4rem;
+    margin: .75em 4rem 0 4rem;
     font-size: 3em;
   }
   h3 {
-    margin: 0 4rem 2em 4rem;
+    margin: 2em 4rem 0 4rem;
     font-size: 2em;
   }
   div.buttons {
-    margin: 0 4em;
+    position: absolute;
+    right: 0; bottom: 2em; left: 0;
+    width: 100%;
+    margin: 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-evenly;
     button {
-      width: 10em;
-      height: 10em;
+      width: 50%;
+      height: 25vh;
       appearance: none;
-      border-radius: 100%;
       border: none;
       cursor: pointer;
-      box-shadow: 0 .25em .25em rgba(0,0,0,.25);
       transition: all .25s;
       font-family: $main-font;
-      background-size: 95%;
-      background-position: center;
-      background-repeat: no-repeat;
-      text-indent: -9000px;
-      &#neutral {
-        background-color: #eee;
-        // border-color: darken(#eee, 5%);
-        // color: darken(#eee, 50%);
-        background-image: url('/static/img/twemoji/1f610.svg');
-      }
-      &#happy {
-        background-color: #7ed321;
-        // border-color: darken(#7ed321, 5%);
-        // color: darken(#7ed321, 15%);
-        background-image: url('/static/img/twemoji/1f603.svg');
-      }
-      &#angry {
-        background-color: #b0021b;
-        // border-color: darken(#b0021b, 5%);
-        // color: darken(#b0021b, 15%);
-        background-image: url('/static/img/twemoji/1f621.svg');
-      }
-      &#sad {
-        background-color: #4a90e2;
-        // border-color: darken(#4a90e2, 5%);
-        // color: darken(#4a90e2, 15%);
-        background-image: url('/static/img/twemoji/1f622.svg');
-      }
-      &:hover {
-        transform: scale(1.15);
-        box-shadow: 0 .5em .25em rgba(0,0,0,.25);
-      }
-      &:active {
-        transform: scale(1);
-        box-shadow: 0 .25em .25em rgba(0,0,0,.25), inset 0 0 .25em rgba(0,0,0,.25);
+      background: none;
+      div {
+        height: 100%;
       }
     }
   }
