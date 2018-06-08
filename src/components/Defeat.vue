@@ -29,7 +29,7 @@ export default {
         opacity: 0;
       }
     }
-    &:hover {
+    &:hover, &.feedback {
       img.emojis {
         animation: shake ease 1s;
       }
@@ -37,8 +37,15 @@ export default {
         animation: fadeIn ease 1s;
         animation-fill-mode: both;
       }
+    }
+    &:hover {
       img.text {
         animation: swing ease 1s;
+      }
+    }
+    &.feedback {
+      img.text {
+        animation: slideInDown ease 1s;
       }
     }
   }
