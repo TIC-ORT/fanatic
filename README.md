@@ -6,10 +6,10 @@
 
 ## ¿Cómo funciona?
 
-###Modo Entrenamiento
+### Modo Entrenamiento
 Mostrándole al sistema de *Visual Recognition* de IBM Watson&trade; vamos a enseñarle **cómo siente un argentin@** los triunfos y las derrotas de su selección.
 
-###Modo Partido
+### Modo Partido
 Antes de cada partido, mediremos el humor de la hinchada utilizando el entrenamiento previo de *Machine Learning*, **¿Servirá para preveer los resultados?**
 
 ## ¿Querés colaborar?
@@ -25,7 +25,7 @@ npm install
 # serve with hot reload at localhost:8080
 npm run dev
 
-# do you magic and send the pull request
+# do your magic and send the pull request
 ```
 ## Acerca de
 
