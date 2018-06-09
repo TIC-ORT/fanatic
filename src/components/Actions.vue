@@ -174,6 +174,12 @@ export default {
       div {
         height: 100%;
       }
+      &:first-child {
+        box-shadow: -1em 1em 1em rgba(0,0,0,.25);
+      }
+      &:last-child {
+        box-shadow: -1em 1em 1em rgba(0,0,0,.25);
+      }
     }
     &.pressed {
       button {
@@ -181,10 +187,10 @@ export default {
         opacity: 0;
         &.active {
           opacity: 1;
-          &#victory {
+          &:first-child {
             transform: translateX(50%);
           }
-          &#defeat {
+          &:last-child {
             transform: translateX(-50%);
           }
         }
