@@ -3,24 +3,24 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
 
     <title>FanaTIC</title>
-    <meta name="description" content="Scoreboard de emociones para los partidos de la Selección Argentina" />
+    <meta name="description" content="Usando Machine Learning y Visual Recognition para entender el sentimiento argentin@" />
 
     <link rel="manifest" href="<%= htmlWebpackPlugin.files.publicPath %>manifest.json" />
-    <meta name="theme-color" content="#74AC05" />
+    <meta name="theme-color" content="#429321" />
 
     <!-- Add to home screen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-title" content="Andres Moritan" />
     <link rel="apple-touch-icon" href="<%= htmlWebpackPlugin.files.publicPath %>apple-touch-icon.png" />
-    <link rel="mask-icon" href="<%= htmlWebpackPlugin.files.publicPath %>icon.svg" color="#74AC05">
+    <link rel="mask-icon" href="<%= htmlWebpackPlugin.files.publicPath %>icon.svg" color="#429321">
 
     <!-- Add to home screen for Windows -->
     <meta name="msapplication-TileImage" content="<%= htmlWebpackPlugin.files.publicPath %>msapplication-icon.png">
-    <meta name="msapplication-TileColor" content="#74AC05">
+    <meta name="msapplication-TileColor" content="#429321">
     <% for (var chunk of webpack.chunks) {
         for (var file of chunk.files) {
           if (file.match(/\.(js|css)$/)) { %>
@@ -28,7 +28,7 @@
   </head>
   <body>
     <noscript>
-      This is your fallback content in case JavaScript fails to load.
+      La aplicación necesita JavaScript activado para funcionar.
     </noscript>
     <div id="app"></div>
     <!-- Todo: only include in production -->
