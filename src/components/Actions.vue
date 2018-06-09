@@ -1,23 +1,29 @@
 <template>
   <div id="actions" class="mask">
-    <h3>Enseñale a Watson cómo siente un hincha Argentin@</h3>
+    <h3>Enseñale a Watson cómo siente un hincha argentin@</h3>
     <h2>¿Qué sentimiento vas a hacer?</h2>
-    <div class="buttons">
-      <!-- <button id="neutral" @click="takePicture('neutral')" @mousedown="holdingAction(true, 'firstKey')" @mouseup="holdingAction(false)">Neutral</button> -->
-      <button id="happy" @click="takePicture('happy')" @mousedown="holdingAction(true, 'secondKey')" @mouseup="holdingAction(false)">Feliz</button>
-      <button id="angry" @click="takePicture('angry')" @mousedown="holdingAction(true, 'thirdKey')" @mouseup="holdingAction(false)">Enojado</button>
-      <!-- <button id="sad" @click="takePicture('sad')" @mousedown="holdingAction(true, 'fourthKey')" @mouseup="holdingAction(false)">Triste</button> -->
+    <div class="buttons animated fadeInUpBig">
+      <button id="victory" @click="takePicture('victory')" @mousedown="holdingAction(true, 'firstKey')" @mouseup="holdingAction(false)"><victory></victory></button>
+      <button id="defeat" @click="takePicture('defeat')" @mousedown="holdingAction(true, 'secondKey')" @mouseup="holdingAction(false)"><defeat></defeat></button>
     </div>
   </div>
 </template>
 
 <script>
+import Victory from './Victory'
+import Defeat from './Defeat'
 import axios from 'axios'
+axios.defaults.headers.common['Authorization'] = process.env.FANATIC_KEY
 export default {
   name: 'actions',
+  components: {
+    'victory': Victory,
+    'defeat': Defeat
+  },
   data () {
     return {
-      settingKey: ''
+      settingKey: '',
+      actionStarted: false
     }
   },
   methods: {
@@ -25,10 +31,10 @@ export default {
       var _this = this
       _this.$parent.actionsAvailable = false
       window.setTimeout(function () {
-        _this.$parent.timerSeconds = 5
+        _this.$parent.timerSeconds = 3
         window.setTimeout(function () {
-          var width = 1280
-          var height = 720
+          var width = 1920
+          var height = 1080
 
           var canvas = document.createElement('canvas')
           var context = canvas.getContext('2d')
@@ -39,19 +45,17 @@ export default {
           context.drawImage(window.webcam, 0, 0, width, height)
 
           canvas.toBlob(function (blob) {
-            _this.getURL(category).then(function (presigned) {
-              _this.upload(blob, presigned.data.url).then(function (res) {
-                _this.$parent.feedbackClass = 'success ' + category
-                window.setTimeout(function () {
-                  _this.$parent.feedbackClass = ''
-                  _this.$parent.stillPhoto = ''
-                }, 500)
-                window.setTimeout(function () {
-                  _this.$parent.actionsAvailable = true
-                }, 1000)
-              }).catch(function (err) {
-                _this.handleError(err)
-              })
+            _this.upload(blob, category).then(function (res) {
+              _this.$parent.feedbackMessage = category
+              _this.$parent.feedbackClass = 'success'
+              window.setTimeout(function () {
+                _this.$parent.feedbackMessage = ''
+                _this.$parent.feedbackClass = ''
+                _this.$parent.stillPhoto = ''
+              }, 1000)
+              window.setTimeout(function () {
+                _this.$parent.actionsAvailable = true
+              }, 1500)
             }).catch(function (err) {
               _this.handleError(err)
             })
@@ -62,50 +66,21 @@ export default {
           _this.$parent.timerSeconds = 0
           _this.$parent.stillPhoto = data
           _this.$parent.feedbackClass = 'loading'
-        }, 5000)
+        }, 3000)
       }, 1000)
     },
-    keydown (event) {
-      var _this = this
-      if (_this.settingKey === '') {
-        switch (event.keyCode) {
-          case parseInt(localStorage.getItem('firstKey')):
-            document.getElementById('neutral').click()
-            break
-          case parseInt(localStorage.getItem('secondKey')):
-            document.getElementById('happy').click()
-            break
-          case parseInt(localStorage.getItem('thirdKey')):
-            document.getElementById('angry').click()
-            break
-          case parseInt(localStorage.getItem('fourthKey')):
-            document.getElementById('sad').click()
-            break
-        }
-      } else {
-        localStorage.setItem(_this.settingKey, event.keyCode)
-        _this.settingKey = ''
-      }
-    },
-    getURL (category) {
-      return axios.post('https://openwhisk.ng.bluemix.net/api/v1/web/tic-ort_tic-ort/default/upload.json', {
-        content_type: 'image/jpeg',
-        category: category
-      })
-    },
-    upload (photo, destiny) {
-      return axios({
-        method: 'put',
-        url: destiny,
-        headers: { 'content-type': photo.type },
-        data: photo
-      })
+    upload (photo, category) {
+      var data = new FormData()
+      data.append('photo', photo)
+      data.append('category', category)
+      data.append('bucket', process.env.FANATIC_BUCKET)
+      return axios.post('https://fanatic-api.mybluemix.net/upload', data)
     },
     handleError (error) {
       var _this = this
       _this.$parent.feedbackMessage = 'Ha ocurrido un error al enviar la imagen'
       _this.$parent.feedbackClass = 'error'
-      console.log('Uploading error!', error)
+      console.error('Uploading error!', error)
       window.setTimeout(function () {
         _this.$parent.feedbackMessage = ''
         _this.$parent.feedbackClass = ''
@@ -125,14 +100,38 @@ export default {
       } else {
         clearTimeout(_this.keyboardTimeout)
       }
+    },
+    pushingButton (event) {
+      if (this.settingKey === '') {
+        if (!this.actionStarted) {
+          this.actionStarted = true
+          if (event.keyCode === parseInt(localStorage.getItem('firstKey'))) {
+            this.pushAction('victory')
+          } else if (event.keyCode === parseInt(localStorage.getItem('secondKey'))) {
+            this.pushAction('defeat')
+          }
+        }
+      } else {
+        localStorage.setItem(this.settingKey, event.keyCode)
+        this.settingKey = ''
+      }
+    },
+    pushAction (action) {
+      var _this = this
+      // document.getElementById(action).firstChild.classList.add('pressed')
+      document.getElementById(action).classList.add('active')
+      document.getElementById(action).parentElement.classList.add('pressed')
+      window.setTimeout(function () {
+        _this.takePicture(action)
+      }, 1000)
     }
   },
   mounted () {
     document.getElementById('actions').style.top = window.webcam.offsetTop + 'px'
-    document.addEventListener('keydown', this.keydown, false)
+    document.addEventListener('keyup', this.pushingButton, false)
   },
   destroyed () {
-    document.removeEventListener('keydown', this.keydown, true)
+    document.removeEventListener('keyup', this.pushingButton, true)
   }
 }
 </script>
@@ -141,7 +140,8 @@ export default {
 #actions {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  overflow: hidden;
   h2, h3 {
     font-weight: 700;
     color: white;
@@ -149,63 +149,47 @@ export default {
     text-shadow: 0 0 .25em rgba(0,0,0,.25);
   }
   h2 {
-    margin: 0 4rem 1em 4rem;
+    margin: .75em 4rem 0 4rem;
     font-size: 3em;
   }
   h3 {
-    margin: 0 4rem 2em 4rem;
+    margin: 2em 4rem 0 4rem;
     font-size: 2em;
   }
   div.buttons {
-    margin: 0 4em;
+    position: absolute;
+    right: 0; bottom: 0; left: 0;
+    width: 100%;
+    margin: 0;
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
+    background: rgba(255,255,255,0.25);
     button {
-      width: 10em;
-      height: 10em;
+      width: 50%;
+      height: 25vh;
       appearance: none;
-      border-radius: 100%;
       border: none;
       cursor: pointer;
-      box-shadow: 0 .25em .25em rgba(0,0,0,.25);
       transition: all .25s;
       font-family: $main-font;
-      background-size: 95%;
-      background-position: center;
-      background-repeat: no-repeat;
-      text-indent: -9000px;
-      &#neutral {
-        background-color: #eee;
-        // border-color: darken(#eee, 5%);
-        // color: darken(#eee, 50%);
-        background-image: url('/static/img/twemoji/1f610.svg');
+      background: none;
+      div {
+        height: 100%;
       }
-      &#happy {
-        background-color: #7ed321;
-        // border-color: darken(#7ed321, 5%);
-        // color: darken(#7ed321, 15%);
-        background-image: url('/static/img/twemoji/1f603.svg');
-      }
-      &#angry {
-        background-color: #b0021b;
-        // border-color: darken(#b0021b, 5%);
-        // color: darken(#b0021b, 15%);
-        background-image: url('/static/img/twemoji/1f621.svg');
-      }
-      &#sad {
-        background-color: #4a90e2;
-        // border-color: darken(#4a90e2, 5%);
-        // color: darken(#4a90e2, 15%);
-        background-image: url('/static/img/twemoji/1f622.svg');
-      }
-      &:hover {
-        transform: scale(1.15);
-        box-shadow: 0 .5em .25em rgba(0,0,0,.25);
-      }
-      &:active {
-        transform: scale(1);
-        box-shadow: 0 .25em .25em rgba(0,0,0,.25), inset 0 0 .25em rgba(0,0,0,.25);
+    }
+    &.pressed {
+      button {
+        transition: all ease .75s;
+        opacity: 0;
+        &.active {
+          opacity: 1;
+          &:first-child {
+            transform: translateX(50%);
+          }
+          &:last-child {
+            transform: translateX(-50%);
+          }
+        }
       }
     }
   }

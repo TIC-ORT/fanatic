@@ -1,10 +1,14 @@
 <template>
   <div id="feedback" class="mask">
     <span>{{ message }}</span>
+    <victory v-if="message === 'victory'" class="feedback"></victory>
+    <defeat  v-if="message === 'defeat'" class="feedback"></defeat>
   </div>
 </template>
 
 <script>
+import Victory from './Victory'
+import Defeat from './Defeat'
 export default {
   name: 'feedback',
   props: {
@@ -12,6 +16,10 @@ export default {
       type: String,
       default: ''
     }
+  },
+  components: {
+    'victory': Victory,
+    'defeat': Defeat
   },
   mounted () {
     document.getElementById('feedback').style.top = window.webcam.offsetTop + 'px'
@@ -62,36 +70,11 @@ export default {
   }
   &.success {
     span {
-      margin: 0;
-      font-size: 1em;
-      width: 12em;
-      height: 12em;
-      position: absolute;
-      top: -4em; right: -4em;
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-      animation: bounceIn 1s;
+      display: none;
     }
-    &.neutral {
-      span {
-        background-image: url('/static/img/twemoji/1f610.svg');
-      }
-    }
-    &.happy {
-      span {
-        background-image: url('/static/img/twemoji/1f603.svg');
-      }
-    }
-    &.angry {
-      span {
-        background-image: url('/static/img/twemoji/1f621.svg');
-      }
-    }
-    &.sad {
-      span {
-        background-image: url('/static/img/twemoji/1f622.svg');
-      }
+    div {
+      width: 100%;
+      height: 100%;
     }
   }
   &.error {
