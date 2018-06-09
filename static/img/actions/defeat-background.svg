@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="480px" height="240px" viewBox="0 0 480 240" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>defeat</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="50%" gradientTransform="translate(0.500000,0.500000),scale(0.500000,1.000000),rotate(90.000000),scale(1.000000,2.007144),translate(-0.500000,-0.500000)" id="radialGradient-1">
+            <stop stop-color="#1756B2" stop-opacity="0.5" offset="0%"></stop>
+            <stop stop-color="#9D1414" stop-opacity="0" offset="100%"></stop>
+        </radialGradient>
+    </defs>
+    <g id="defeat" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="background" fill="url(#radialGradient-1)">
+            <rect id="Rectangle" x="0" y="0" width="480" height="240"></rect>
+        </g>
+    </g>
+</svg>
