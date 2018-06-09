@@ -2,7 +2,7 @@
   <div id="actions" class="mask">
     <h3>Enseñale a Watson cómo siente un hincha argentin@</h3>
     <h2>¿Qué sentimiento vas a hacer?</h2>
-    <div class="buttons">
+    <div class="buttons animated fadeInUpBig">
       <button id="victory" @click="takePicture('victory')" @mousedown="holdingAction(true, 'firstKey')" @mouseup="holdingAction(false)"><victory></victory></button>
       <button id="defeat" @click="takePicture('defeat')" @mousedown="holdingAction(true, 'secondKey')" @mouseup="holdingAction(false)"><defeat></defeat></button>
     </div>
@@ -141,6 +141,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  overflow: hidden;
   h2, h3 {
     font-weight: 700;
     color: white;
@@ -157,11 +158,12 @@ export default {
   }
   div.buttons {
     position: absolute;
-    right: 0; bottom: 2em; left: 0;
+    right: 0; bottom: 0; left: 0;
     width: 100%;
     margin: 0;
     display: flex;
     justify-content: space-evenly;
+    background: rgba(255,255,255,0.25);
     button {
       width: 50%;
       height: 25vh;
@@ -174,16 +176,10 @@ export default {
       div {
         height: 100%;
       }
-      &:first-child {
-        box-shadow: -1em 1em 1em rgba(0,0,0,.25);
-      }
-      &:last-child {
-        box-shadow: -1em 1em 1em rgba(0,0,0,.25);
-      }
     }
     &.pressed {
       button {
-        transition: all ease 1s;
+        transition: all ease .75s;
         opacity: 0;
         &.active {
           opacity: 1;
