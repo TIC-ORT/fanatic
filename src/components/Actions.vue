@@ -22,7 +22,8 @@ export default {
   },
   data () {
     return {
-      settingKey: ''
+      settingKey: '',
+      actionStarted: false
     }
   },
   methods: {
@@ -68,22 +69,6 @@ export default {
         }, 3000)
       }, 1000)
     },
-    keydown (event) {
-      var _this = this
-      if (_this.settingKey === '') {
-        switch (event.keyCode) {
-          case parseInt(localStorage.getItem('firstKey')):
-            document.getElementById('victory').click()
-            break
-          case parseInt(localStorage.getItem('secondKey')):
-            document.getElementById('defeat').click()
-            break
-        }
-      } else {
-        localStorage.setItem(_this.settingKey, event.keyCode)
-        _this.settingKey = ''
-      }
-    },
     upload (photo, category) {
       var data = new FormData()
       data.append('photo', photo)
@@ -118,15 +103,12 @@ export default {
     },
     pushingButton (event) {
       if (this.settingKey === '') {
-        if (event.type === 'keydown') {
+        if (!this.actionStarted) {
+          this.actionStarted = true
           if (event.keyCode === parseInt(localStorage.getItem('firstKey'))) {
             this.pushAction('victory')
           } else if (event.keyCode === parseInt(localStorage.getItem('secondKey'))) {
             this.pushAction('defeat')
-          }
-        } else {
-          if (this.actionTimeout !== undefined) {
-            clearTimeout(this.actionTimeout)
           }
         }
       } else {
@@ -135,22 +117,21 @@ export default {
       }
     },
     pushAction (action) {
-      this.actionTimeout = window.setTimeout(function () {
-        document.getElementById(action).firstChild.classList.add('pressed')
-        window.setTimeout(function () {
-          document.getElementById(action).click()
-        }, 1000)
-      }, 500)
+      var _this = this
+      // document.getElementById(action).firstChild.classList.add('pressed')
+      document.getElementById(action).classList.add('active')
+      document.getElementById(action).parentElement.classList.add('pressed')
+      window.setTimeout(function () {
+        _this.takePicture(action)
+      }, 1000)
     }
   },
   mounted () {
     document.getElementById('actions').style.top = window.webcam.offsetTop + 'px'
-    document.addEventListener('keydown', this.pushingButton, false)
     document.addEventListener('keyup', this.pushingButton, false)
   },
   destroyed () {
-    // document.removeEventListener('keydown', this.keydown, true)
-    // document.removeEventListener('keyup', this.keyup, true)
+    document.removeEventListener('keyup', this.pushingButton, true)
   }
 }
 </script>
@@ -192,6 +173,21 @@ export default {
       background: none;
       div {
         height: 100%;
+      }
+    }
+    &.pressed {
+      button {
+        transition: all ease 1s;
+        opacity: 0;
+        &.active {
+          opacity: 1;
+          &#victory {
+            transform: translateX(50%);
+          }
+          &#defeat {
+            transform: translateX(-50%);
+          }
+        }
       }
     }
   }
