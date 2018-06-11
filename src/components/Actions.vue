@@ -104,10 +104,11 @@ export default {
     pushingButton (event) {
       if (this.settingKey === '') {
         if (!this.actionStarted) {
-          this.actionStarted = true
           if (event.keyCode === parseInt(localStorage.getItem('firstKey'))) {
+            this.actionStarted = true
             this.pushAction('victory')
           } else if (event.keyCode === parseInt(localStorage.getItem('secondKey'))) {
+            this.actionStarted = true
             this.pushAction('defeat')
           }
         }
