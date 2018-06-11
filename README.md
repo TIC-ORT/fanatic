@@ -1,8 +1,8 @@
 # FanaTIC: Usamos _Machine Learning_ y _Visual Recognition_ para entender el sentimiento argentin@
 
-[![Progressive Web Application](https://fanatic.proyectosort.edu.ar/static/img/badges/pwa.svg)](https://fanatic.proyectosort.edu.ar/)
-![Android Application](https://fanatic.proyectosort.edu.ar/static/img/badges/google.svg)
-![iOS Application](https://fanatic.proyectosort.edu.ar/static/img/badges/apple.svg)
+[![Progressive Web Application](https://fanatic.mybluemix.net/static/img/badges/pwa.svg)](https://fanatic.mybluemix.net/)
+![Android Application](https://fanatic.mybluemix.net/static/img/badges/google.svg)
+![iOS Application](https://fanatic.mybluemix.net/static/img/badges/apple.svg)
 
 ## ¿Cómo funciona?
 
