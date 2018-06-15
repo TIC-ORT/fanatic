@@ -1,7 +1,11 @@
 <template>
   <div id="actions" class="mask" v-if="$parent.match">
-    <h3>¿Qué sensasión tenes para el partido?</h3>
-    <h2>{{ $parent.match.team_one + ' - ' + $parent.match.team_two }}</h2>
+    <h3>
+      <img :src="'/static/img/flags/' + $parent.match.team_one.toLowerCase() + '.svg'" width="36" height="36" :alt="$parent.match.team_one" />
+      <abbr title="versus">vs</abbr>
+      <img :src="'/static/img/flags/' + $parent.match.team_two.toLowerCase() + '.svg'" width="36" height="36" :alt="$parent.match.team_two" />
+    </h3>
+    <h2>¿Qué sensasión tenes para el partido?</h2>
     <div class="buttons animated fadeInUpBig">
       <button id="guess" @click="takePicture('guess')" @mousedown="holdingAction(true, 'ceroKey')" @mouseup="holdingAction(false)">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
@@ -202,6 +206,17 @@ export default {
   h3 {
     margin: 2em 4rem 0 4rem;
     font-size: 2em;
+    img {
+      display: inline-block;
+      height: 3em;
+      width: auto;
+      vertical-align: middle;
+    }
+    abbr {
+      display: inline-block;
+      text-decoration: none;
+      margin: 1em 1em;
+    }
   }
   div.buttons {
     position: absolute;
