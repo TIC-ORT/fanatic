@@ -41,9 +41,25 @@ export default {
       feedbackMessage: 'La aplicación necesita acceso a la cámara para funcionar',
       feedbackClass: 'webcam',
       actionsAvailable: false,
-      trainingModeEnable: true,
       timerSeconds: 0,
-      stillPhoto: ''
+      stillPhoto: '',
+      match: null
+    }
+  },
+  methods: {
+    fetchMatch () {
+      var _this = this
+      _this.feedbackMessage = 'Conectando con el servidor...'
+      _this.$http.get('/match').then(function (res) {
+        _this.feedbackMessage = ''
+        _this.feedbackClass = ''
+        _this.match = res.data
+        _this.actionsAvailable = true
+      }).catch(function (err) {
+        _this.feedbackMessage = 'Ha ocurrido un error al conectarse con el servidor'
+        _this.feedbackClass = 'error'
+        console.error('Connection error!', err)
+      })
     }
   }
 }

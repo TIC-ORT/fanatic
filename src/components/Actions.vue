@@ -1,17 +1,7 @@
-<template v-if="$route.query.training">
-  <div id="actions" class="mask">
-    <h3>Enseñale a Watson cómo siente un hincha argentin@</h3>
-    <h2>¿Qué sentimiento vas a hacer?</h2>
-    <div class="buttons training animated fadeInUpBig">
-      <button id="victory" @click="takePicture('victory')" @mousedown="holdingAction(true, 'firstKey')" @mouseup="holdingAction(false)"><victory></victory></button>
-      <button id="defeat" @click="takePicture('defeat')" @mousedown="holdingAction(true, 'secondKey')" @mouseup="holdingAction(false)"><defeat></defeat></button>
-    </div>
-  </div>
-</template>
-<template v-else>
-  <div id="actions" class="mask">
+<template>
+  <div id="actions" class="mask" v-if="$parent.match">
     <h3>¿Qué sensasión tenes para el partido?</h3>
-    <h2>ARG - ???</h2>
+    <h2>{{ $parent.match.team_one + ' - ' + $parent.match.team_two }}</h2>
     <div class="buttons animated fadeInUpBig">
       <button id="guess" @click="takePicture('guess')" @mousedown="holdingAction(true, 'ceroKey')" @mouseup="holdingAction(false)">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
@@ -28,13 +18,19 @@
       </button>
     </div>
   </div>
+  <div id="actions" class="mask" v-else>
+    <h3>Enseñale a Watson cómo siente un hincha argentin@</h3>
+    <h2>¿Qué sentimiento vas a hacer?</h2>
+    <div class="buttons training animated fadeInUpBig">
+      <button id="victory" @click="takePicture('victory')" @mousedown="holdingAction(true, 'firstKey')" @mouseup="holdingAction(false)"><victory></victory></button>
+      <button id="defeat" @click="takePicture('defeat')" @mousedown="holdingAction(true, 'secondKey')" @mouseup="holdingAction(false)"><defeat></defeat></button>
+    </div>
+  </div>
 </template>
 
 <script>
 import Victory from './Victory'
 import Defeat from './Defeat'
-import axios from 'axios'
-axios.defaults.headers.common['Authorization'] = process.env.FANATIC_KEY
 export default {
   name: 'actions',
   components: {
@@ -68,15 +64,8 @@ export default {
           canvas.toBlob(function (blob) {
             if (category === 'guess') {
               _this.classify(blob).then(function (res) {
-                console.log(res.data)
-                var victory = res.data.find(e => e.class === 'Victory') || { class: 'Victory', score: 0 }
-                var defeat = res.data.find(e => e.class === 'Defeat') || { class: 'Defeat', score: 0 }
-
-                if (victory.score > defeat.score && victory.score > 0.6) {
-                  _this.$parent.feedbackMessage = 'victory'
-                  _this.$parent.feedbackClass = 'success'
-                } else if (defeat.score > victory.score && defeat.score > 0.6) {
-                  _this.$parent.feedbackMessage = 'defeat'
+                if (res.data.vote) {
+                  _this.$parent.feedbackMessage = res.data.vote
                   _this.$parent.feedbackClass = 'success'
                 } else {
                   _this.$parent.feedbackMessage = 'Ni idea :('
@@ -124,12 +113,12 @@ export default {
       data.append('photo', photo)
       data.append('category', category)
       data.append('bucket', process.env.FANATIC_BUCKET)
-      return axios.post('https://fanatic-api.mybluemix.net/upload', data)
+      return this.$http.post('/upload', data)
     },
     classify (photo) {
       var data = new FormData()
       data.append('photo', photo)
-      return axios.post('https://fanatic-api.mybluemix.net/classify', data)
+      return this.$http.post('/classify', data)
     },
     handleError (error) {
       var _this = this

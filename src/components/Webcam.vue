@@ -17,9 +17,7 @@ export default {
     }).then(function (stream) {
       window.webcam.srcObject = stream
       window.webcam.play()
-      _this.$parent.feedbackMessage = ''
-      _this.$parent.feedbackClass = ''
-      _this.$parent.actionsAvailable = true
+      _this.$parent.fetchMatch()
     }).catch(function (err) {
       console.log('An error occured! ' + err)
     })

@@ -7,5 +7,5 @@ module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
   FANATIC_KEY: process.env.FANATIC_KEY,
   FANATIC_BUCKET: '"fanatic-training-dev"',
-  WATSON_VR_APIKEY: process.env.WATSON_VR_APIKEY
+  FANATIC_API: '"http://localhost:3000"'
 })
