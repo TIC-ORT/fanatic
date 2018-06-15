@@ -104,7 +104,7 @@ export default {
           _this.$parent.timerSeconds = 0
           _this.$parent.stillPhoto = data
           _this.$parent.feedbackClass = 'loading'
-        }, 3000)
+        }, 3500)
       }, 1000)
     },
     upload (photo, category) {
