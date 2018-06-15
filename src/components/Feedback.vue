@@ -3,12 +3,14 @@
     <span>{{ message }}</span>
     <victory v-if="message === 'victory'" class="feedback"></victory>
     <defeat  v-if="message === 'defeat'" class="feedback"></defeat>
+    <thanks  v-if="message === 'thanks'" class="feedback"></thanks>
   </div>
 </template>
 
 <script>
 import Victory from './Victory'
 import Defeat from './Defeat'
+import Thanks from './Thanks'
 export default {
   name: 'feedback',
   props: {
@@ -19,7 +21,8 @@ export default {
   },
   components: {
     'victory': Victory,
-    'defeat': Defeat
+    'defeat': Defeat,
+    'thanks': Thanks
   },
   mounted () {
     document.getElementById('feedback').style.top = window.webcam.offsetTop + 'px'

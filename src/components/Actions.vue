@@ -68,13 +68,8 @@ export default {
           canvas.toBlob(function (blob) {
             if (category === 'guess') {
               _this.classify(blob).then(function (res) {
-                if (res.data.vote) {
-                  _this.$parent.feedbackMessage = res.data.vote
-                  _this.$parent.feedbackClass = 'success'
-                } else {
-                  _this.$parent.feedbackMessage = 'Ni idea :('
-                  _this.$parent.feedbackClass = 'error'
-                }
+                _this.$parent.feedbackMessage = 'thanks'
+                _this.$parent.feedbackClass = 'success'
                 window.setTimeout(function () {
                   _this.$parent.feedbackMessage = ''
                   _this.$parent.feedbackClass = ''
