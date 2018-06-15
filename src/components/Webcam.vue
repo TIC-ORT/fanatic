@@ -1,5 +1,5 @@
 <template>
-  <video id="webcam" width="1920" height="1080"></video>
+  <video id="webcam" width="1280" height="720"></video>
 </template>
 
 <script>
@@ -11,15 +11,13 @@ export default {
     navigator.mediaDevices.getUserMedia({
       audio: false,
       video: {
-        width: { min: 1280, ideal: 1920 },
-        height: { min: 720, ideal: 1080 }
+        width: { min: 1280 },
+        height: { min: 720 }
       }
     }).then(function (stream) {
       window.webcam.srcObject = stream
       window.webcam.play()
-      _this.$parent.feedbackMessage = ''
-      _this.$parent.feedbackClass = ''
-      _this.$parent.actionsAvailable = true
+      _this.$parent.fetchMatch()
     }).catch(function (err) {
       console.log('An error occured! ' + err)
     })
