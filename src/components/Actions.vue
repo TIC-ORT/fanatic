@@ -54,8 +54,8 @@ export default {
       window.setTimeout(function () {
         _this.$parent.timerSeconds = 3
         window.setTimeout(function () {
-          var width = 1920
-          var height = 1080
+          var width = 1280
+          var height = 720
 
           var canvas = document.createElement('canvas')
           var context = canvas.getContext('2d')
@@ -97,7 +97,7 @@ export default {
                 _this.handleError(err)
               })
             }
-          }, 'image/jpeg', 1)
+          }, 'image/jpeg', 0.85)
 
           var data = canvas.toDataURL('image/jpeg')
 
