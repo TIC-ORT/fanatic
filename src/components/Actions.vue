@@ -5,7 +5,7 @@
       <abbr title="versus">vs</abbr>
       <img :src="'/static/img/flags/' + $parent.match.team_two.toLowerCase() + '.svg'" width="36" height="36" :alt="$parent.match.team_two" />
     </h3>
-    <h2>¿Qué sensasión tenes para el partido?</h2>
+    <h2>¿Qué sensación tenes para el partido?</h2>
     <div class="buttons animated fadeInUpBig">
       <button id="guess" @click="takePicture('guess')" @mousedown="holdingAction(true, 'ceroKey')" @mouseup="holdingAction(false)">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
